@@ -1,0 +1,44 @@
+[
+    {
+        "iconPath": ":duckduckgo",
+        "id": "67248196",
+        "name": "DuckDuckGo",
+        "trigger": "dd",
+        "url": "https://duckduckgo.com/?q=%s"
+    },
+    {
+        "iconPath": ":github",
+        "id": "8da28912",
+        "name": "GitHub",
+        "trigger": "gh",
+        "url": "https://github.com/search?utf8=✓&q=%s"
+    },
+    {
+        "iconPath": ":google",
+        "id": "ac68bd04",
+        "name": "Google",
+        "trigger": "gg",
+        "url": "https://www.google.com/search?q=%s"
+    },
+    {
+        "iconPath": ":maps",
+        "id": "7c7528fd",
+        "name": "Google Maps",
+        "trigger": "maps",
+        "url": "https://www.google.com/maps/search/%s/"
+    },
+    {
+        "iconPath": ":wolfram",
+        "id": "62d925f5",
+        "name": "Wolfram Alpha",
+        "trigger": "wa",
+        "url": "https://www.wolframalpha.com/input/?i=%s"
+    },
+    {
+        "iconPath": ":youtube",
+        "id": "df25761a",
+        "name": "Youtube",
+        "trigger": "yt",
+        "url": "https://www.youtube.com/results?search_query=%s"
+    }
+]

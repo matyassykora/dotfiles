@@ -1,0 +1,76 @@
+FreeMono
+    FreeMono
+    FreeMono Bold
+    FreeMono Bold Oblique
+    FreeMono Oblique
+
+JetBrains Mono
+    JetBrains Mono Bold
+    JetBrains Mono Bold Italic
+    JetBrains Mono ExtraBold
+    JetBrains Mono ExtraBold Italic
+    JetBrains Mono ExtraLight
+    JetBrains Mono ExtraLight Italic
+    JetBrains Mono Italic
+    JetBrains Mono Light
+    JetBrains Mono Light Italic
+    JetBrains Mono Medium
+    JetBrains Mono Medium Italic
+    JetBrains Mono Regular
+    JetBrains Mono SemiBold
+    JetBrains Mono SemiBold Italic
+    JetBrains Mono Thin
+    JetBrains Mono Thin Italic
+
+JetBrains Mono NL
+    JetBrains Mono NL Bold
+    JetBrains Mono NL Bold Italic
+    JetBrains Mono NL ExtraBold
+    JetBrains Mono NL ExtraBold Italic
+    JetBrains Mono NL ExtraLight
+    JetBrains Mono NL ExtraLight Italic
+    JetBrains Mono NL Italic
+    JetBrains Mono NL Light
+    JetBrains Mono NL Light Italic
+    JetBrains Mono NL Medium
+    JetBrains Mono NL Medium Italic
+    JetBrains Mono NL Regular
+    JetBrains Mono NL SemiBold
+    JetBrains Mono NL SemiBold Italic
+    JetBrains Mono NL Thin
+    JetBrains Mono NL Thin Italic
+
+Source Code Pro
+    Source Code Pro
+    Source Code Pro Black
+    Source Code Pro Black Italic
+    Source Code Pro Bold
+    Source Code Pro Bold Italic
+    Source Code Pro ExtraLight
+    Source Code Pro ExtraLight Italic
+    Source Code Pro Italic
+    Source Code Pro Light
+    Source Code Pro Light Italic
+    Source Code Pro Medium
+    Source Code Pro Medium Italic
+    Source Code Pro Semibold
+    Source Code Pro Semibold Italic
+
+SourceCodeVF
+    SourceCodeVF
+    SourceCodeVF
+    SourceCodeVF
+    SourceCodeVF Black
+    SourceCodeVF Black Italic
+    SourceCodeVF Bold
+    SourceCodeVF Bold Italic
+    SourceCodeVF Italic
+    SourceCodeVF Italic
+    SourceCodeVF Light
+    SourceCodeVF Light Italic
+    SourceCodeVF Medium
+    SourceCodeVF Medium Italic
+    SourceCodeVF Regular
+    SourceCodeVF Semibold
+    SourceCodeVF Semibold Italic
+
