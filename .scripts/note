@@ -23,7 +23,6 @@ open_file() {
 		echo "---"
 		echo "title: $filename"
 		echo "date: $timestamp_date"
-		echo -en "\n"
 		echo "time: $timestamp_time"
 		echo "tags:"
 		echo "- inbox"
@@ -32,11 +31,10 @@ open_file() {
 		echo "# $filename"
 		echo -en "\n"
 		echo -en "\n"
-		echo -en "\n"
 	} >>"$1/$filename.md"
 
 	# Open the file in Neovim
-	nvim '+ normal ggzzi' "$1/$filename.md" -c 12j
+	nvim '+ normal ggzzi' "$1/$filename.md" -c 11j
 }
 
 # Prompt the user if no filename is provided
