@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.scripts:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -78,6 +79,7 @@ source $ZSH/oh-my-zsh.sh
 
 export DDG_ARGS='["-n", 5]'
 export ROFI_SEARCH='ddgr'
+export FZF_DEFAULT_OPTS='--height 80%'
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -102,3 +104,5 @@ export ROFI_SEARCH='ddgr'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vim=nvim
+alias fv="nvim \$(fzf)"
