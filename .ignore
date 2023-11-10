@@ -1,0 +1,4 @@
+go/
+!.config/
+!.zshrc
+!.tmux.conf

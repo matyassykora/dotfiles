@@ -79,7 +79,8 @@ source $ZSH/oh-my-zsh.sh
 
 export DDG_ARGS='["-n", 5]'
 export ROFI_SEARCH='ddgr'
-export FZF_DEFAULT_OPTS='--height 80%'
+export FZF_DEFAULT_OPTS='--height 60%'
+export FZF_DEFAULT_COMMAND="fd . $HOME"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
