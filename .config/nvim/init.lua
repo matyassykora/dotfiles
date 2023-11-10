@@ -237,6 +237,16 @@ require('lazy').setup({
     end,
   },
 
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  },
+
   -- {
   --   'vimwiki/vimwiki',
   --   init = function()
@@ -286,6 +296,9 @@ vim.o.mouse = 'a'
 
 -- Set conceal level
 vim.opt.conceallevel = 2
+
+-- Set line wrap by word
+vim.opt.linebreak = true
 
 -- Set tab spaces
 vim.opt.tabstop = 2
@@ -722,6 +735,7 @@ require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
 cmp.setup {
+  preselect = cmp.PreselectMode.None,
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -735,7 +749,7 @@ cmp.setup {
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+      select = false,
     },
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
