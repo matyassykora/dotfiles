@@ -63,7 +63,13 @@ fi
 # check if file exists
 if [[ -f "$HOME/notes/000-inbox/$filename.md" ]]; then
 	echo "File already exists!"
-	exit 1
+	read -p "Edit? (y/n) " yn
+	case $yn in 
+		y ) nvim '+ normal ggzzi' "$HOME/notes/000-inbox/$filename.md" -c 11j;;
+		n )	exit 1;;
+		* ) echo "invalid response";
+			exit 1;;
+	esac
 fi
 
 open_file "$HOME/notes/000-inbox"
