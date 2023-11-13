@@ -30,7 +30,7 @@ todo usage examples:
 ;;
 *)
 printf "
-Usage: todo [OPTION] [ITEM]
+Usage: todo [OPTION] [LIST] [ITEM]
 
 todo manages todo lists in an easy to use manner.  Lists are stored in "$TODO_DIR"/ListName
 with each item in the list stored as a separate file in that directory.
