@@ -161,6 +161,9 @@ require('lazy').setup({
         theme = 'onedark',
         component_separators = '|',
         section_separators = '',
+        sections = {
+          lualine_a = { 'branch' },
+        },
       },
     },
   },
@@ -224,6 +227,14 @@ require('lazy').setup({
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("harpoon").setup {}
+    end,
+  },
+
+  {
+    'ThePrimeagen/git-worktree.nvim',
+    opts = {},
+    config = function()
+      require("git-worktree").setup {}
     end,
   },
 
@@ -299,7 +310,7 @@ vim.o.mouse = 'a'
 vim.opt.conceallevel = 2
 
 -- Set line wrap by word
-vim.opt.linebreak = true
+vim.opt.wrap = true
 
 -- Set tab spaces
 vim.opt.tabstop = 2
@@ -368,6 +379,9 @@ require('telescope').setup {
 -- Register harpoon as a telescope extension
 require("telescope").load_extension('harpoon')
 
+-- Register git-worktree as a telescope extension
+require("telescope").load_extension('git_worktree')
+
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -387,6 +401,10 @@ vim.keymap.set('n', '<leader>ht', require("harpoon.ui").toggle_quick_menu, { des
 vim.keymap.set('n', '<leader>hu', require("harpoon.mark").add_file, { desc = 'Harpoon a file' })
 vim.keymap.set('n', '<leader>hg', require("harpoon.ui").nav_prev, { desc = 'Harpoon to previous file' })
 vim.keymap.set('n', '<leader>hh', require("harpoon.ui").nav_next, { desc = 'Harpoon to next file' })
+vim.keymap.set('n', '<leader>gl', function() require('telescope').extensions.git_worktree.git_worktrees() end,
+  { desc = 'list worktrees' })
+vim.keymap.set('n', '<leader>gw', function() require('telescope').extensions.git_worktree.create_git_worktree() end,
+  { desc = 'create worktree' })
 vim.keymap.set('n', '<leader>ha', function() require("harpoon.ui").nav_file(1) end, { desc = 'Harpoon switch to file 1' })
 vim.keymap.set('n', '<leader>hs', function() require("harpoon.ui").nav_file(2) end, { desc = 'Harpoon switch to file 2' })
 vim.keymap.set('n', '<leader>hd', function() require("harpoon.ui").nav_file(3) end, { desc = 'Harpoon switch to file 3' })
