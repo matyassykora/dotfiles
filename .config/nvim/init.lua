@@ -275,7 +275,7 @@ require('lazy').setup({
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  require 'kickstart.plugins.autoformat',
+  -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -401,10 +401,7 @@ vim.keymap.set('n', '<leader>ht', require("harpoon.ui").toggle_quick_menu, { des
 vim.keymap.set('n', '<leader>hu', require("harpoon.mark").add_file, { desc = 'Harpoon a file' })
 vim.keymap.set('n', '<leader>hg', require("harpoon.ui").nav_prev, { desc = 'Harpoon to previous file' })
 vim.keymap.set('n', '<leader>hh', require("harpoon.ui").nav_next, { desc = 'Harpoon to next file' })
-vim.keymap.set('n', '<leader>gl', function() require('telescope').extensions.git_worktree.git_worktrees() end,
-  { desc = 'list worktrees' })
-vim.keymap.set('n', '<leader>gw', function() require('telescope').extensions.git_worktree.create_git_worktree() end,
-  { desc = 'create worktree' })
+
 vim.keymap.set('n', '<leader>ha', function() require("harpoon.ui").nav_file(1) end, { desc = 'Harpoon switch to file 1' })
 vim.keymap.set('n', '<leader>hs', function() require("harpoon.ui").nav_file(2) end, { desc = 'Harpoon switch to file 2' })
 vim.keymap.set('n', '<leader>hd', function() require("harpoon.ui").nav_file(3) end, { desc = 'Harpoon switch to file 3' })
@@ -413,7 +410,15 @@ vim.keymap.set('n', '<leader>hj', function() require("harpoon.ui").nav_file(5) e
 vim.keymap.set('n', '<leader>hk', function() require("harpoon.ui").nav_file(6) end, { desc = 'Harpoon switch to file 6' })
 vim.keymap.set('n', '<leader>hl', function() require("harpoon.ui").nav_file(7) end, { desc = 'Harpoon switch to file 7' })
 
+vim.keymap.set('n', '<leader>gl', function() require('telescope').extensions.git_worktree.git_worktrees() end,
+  { desc = 'list worktrees' })
+vim.keymap.set('n', '<leader>gw', function() require('telescope').extensions.git_worktree.create_git_worktree() end,
+  { desc = 'create worktree' })
+
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+
+-- vim.keymap.set('n', '<leader>mc', function() require('nvim-tree-docs.internal').doc_node_at_cursor() end)
+-- vim.keymap.set('v', '<leader>mr', function() require('nvim-tree-docs.internal').doc_all_in_range() end)
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
@@ -436,6 +441,10 @@ require('nvim-treesitter.configs').setup {
   -- Config for generating JSDoc
   tree_docs = {
     enable = true,
+    keymaps = {
+      doc_node_at_cursor = '<leader>mc',
+      doc_all_in_range = '<leader>mr',
+    },
     spec_config = {
       jsdoc = {
         slots = {
