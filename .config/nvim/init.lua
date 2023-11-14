@@ -422,6 +422,8 @@ vim.keymap.set('n', '<leader>gw', function() require('telescope').extensions.git
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
+vim.api.nvim_set_keymap("n", "<Leader>gd", ":lua require('neogen').generate()<CR>", { desc = 'Generate Documentation' })
+
 -- vim.keymap.set('n', '<leader>mc', function() require('nvim-tree-docs.internal').doc_node_at_cursor() end)
 -- vim.keymap.set('v', '<leader>mr', function() require('nvim-tree-docs.internal').doc_all_in_range() end)
 
