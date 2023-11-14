@@ -209,7 +209,6 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/nvim-tree-docs',
     },
     build = ':TSUpdate',
   },
@@ -257,6 +256,12 @@ require('lazy').setup({
       vim.g.mkdp_filetypes = { "markdown" }
     end,
     ft = { "markdown" },
+  },
+
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = true,
   },
 
   -- {
@@ -438,22 +443,6 @@ require('nvim-treesitter.configs').setup {
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
-  -- Config for generating JSDoc
-  tree_docs = {
-    enable = true,
-    keymaps = {
-      doc_node_at_cursor = '<leader>mc',
-      doc_all_in_range = '<leader>mr',
-    },
-    spec_config = {
-      jsdoc = {
-        slots = {
-          class = { author = true }
-        }
-      }
-    }
-  },
-
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
@@ -575,11 +564,19 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {
+    settings = {
+      implicitProjectConfiguration = {
+        checkJs = true
+      },
+    }
+  },
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
   -- html
   html = {
-    filetypes = { "html", "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+    filetypes = { "html",
+      -- "javascript",
+      "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
   },
   -- Emmet
   emmet_ls = {
