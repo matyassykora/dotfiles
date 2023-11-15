@@ -28,6 +28,7 @@ new_note() {
 - [ ] Hledání práce?
 
 ## Deník
+
 EOF
 
 }
@@ -39,5 +40,5 @@ if [ ! -f "$file" ]; then
 	new_note
 fi
 
-# Open the daily note at the bottom of the file in insert mode and run NoNeckPain to make it center
+# Open the daily note at the bottom of the file in insert mode
 nvim '+ normal Gzzo' "$file"
