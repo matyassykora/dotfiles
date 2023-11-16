@@ -20,6 +20,12 @@ yay -s neovim-git ttf-meslo-nerd-font-powerlevel10k
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
+## install locale
+```
+vim /etc/locale.gen
+```
+then uncomment your locale
+
 ## install pip
 ```
 python -m ensurepip --upgrade
