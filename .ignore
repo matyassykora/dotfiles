@@ -1,4 +1,6 @@
 go/
+.cache/
 !.config/
 !.zshrc
-!.tmux.conf
+!.ignore
+!.zsh_history
