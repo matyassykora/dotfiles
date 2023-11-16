@@ -12,7 +12,7 @@ pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git
 
 ## install yay packages
 ```
-yay -s neovim-git ttf-meslo-nerd-font-powerlevel10k
+yay -s neovim-git ttf-meslo-nerd-font-powerlevel10k wpaperd
 ```
 
 ## install oh-my-zsh
@@ -44,22 +44,4 @@ https://github.com/catppuccin/qt5ct
 ## install pip
 ```
 python -m ensurepip --upgrade
-```
-
-## setup random wallpaper switching
-from: https://github.com/tiagofmcosta/wayland-random-wallpaper
-```
-./misc/setup.sh
-```
-and move the executable into /usr/local/bin
-
-then enable the cronie service and setup a cron job
-```
-sudo systemctl enable cronie.service
-```
-```
-crontab -e
-```
-```
-*/30 * * * * random-wallpaper
 ```
