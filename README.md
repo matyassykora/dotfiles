@@ -2,7 +2,7 @@
 
 ## install pacman packages
 ```
-sudo pacman -S zsh yadm hyprland pamixer wget tmux python nodejs npm neofetch kitty curl git base-devel pipewire-pulse wireplumber waybar rofi yarn ttf-font-awesome ttf-jetbrains-mono fzf ntfs-3g mpd cantata libnotify
+sudo pacman -S zsh yadm hyprland pamixer wget tmux python nodejs npm neofetch kitty curl git base-devel pipewire-pulse wireplumber waybar rofi yarn ttf-font-awesome ttf-jetbrains-mono fzf ntfs-3g mpd cantata libnotify fd
 ```
 
 ## install yay
