@@ -86,6 +86,8 @@ export ROFI_SEARCH='ddgr'
 export FZF_DEFAULT_OPTS='--height 60%'
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 
+. ~/.keychain/`uname -n`-sh
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
