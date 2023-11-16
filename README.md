@@ -24,7 +24,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ```
 vim /etc/locale.gen
 ```
-then uncomment your locale
+then uncomment your locale and run:
+```
+sudo locale-gen
+```
 
 ## install pip
 ```
