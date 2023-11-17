@@ -2,7 +2,7 @@
 
 ## install pacman packages
 ```
-sudo pacman -Syyu zsh yadm hyprland pamixer wget tmux python nodejs npm neofetch kitty curl git base-devel pipewire-pulse wireplumber waybar rofi yarn ttf-font-awesome ttf-jetbrains-mono fzf ntfs-3g mpd cantata libnotify fd dolphin qt5ct swww rustup cronie
+sudo pacman -Syyu zsh yadm hyprland pamixer wget tmux python nodejs npm neofetch kitty curl git base-devel pipewire-pulse wireplumber waybar rofi yarn ttf-font-awesome ttf-jetbrains-mono fzf ntfs-3g mpd cantata libnotify fd dolphin qt5ct swww discord
 ```
 
 ## install yay
@@ -12,7 +12,7 @@ pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git
 
 ## install yay packages
 ```
-yay -s neovim-git ttf-meslo-nerd-font-powerlevel10k wpaperd
+yay -s neovim-git ttf-meslo-nerd-font-powerlevel10k wpaperd xwaylandvideobridge-bin 
 ```
 
 ## install oh-my-zsh
