@@ -12,7 +12,7 @@ pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git
 
 ## install yay packages
 ```
-yay -s neovim-git ttf-meslo-nerd-font-powerlevel10k wpaperd xwaylandvideobridge-bin 
+yay -s neovim-git ttf-meslo-nerd-font-powerlevel10k wpaperd xwaylandvideobridge-bin betterdiscord-git betterdiscordctl 
 ```
 
 ## install oh-my-zsh
