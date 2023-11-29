@@ -189,6 +189,8 @@ require('lazy').setup({
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'nvim-lua/popup.nvim',
+      'nvim-telescope/telescope-fzy-native.nvim',
       -- Fuzzy Finder Algorithm which requires local dependencies to be built.
       -- Only load if `make` is available. Make sure you have the system
       -- requirements installed.
@@ -211,6 +213,23 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+  },
+
+  {
+    'kevinhwang91/nvim-ufo',
+    opts = {},
+    dependencies = { "kevinhwang91/promise-async" },
+    config = function()
+      require("ufo").setup {
+        open_fold_hl_timeout = 0,
+        close_fold_kinds = {'region', 'comment', 'imports'},
+        preview = {},
+        enable_get_fold_virt_text = true,
+        provider_selector = function()
+          return { 'treesitter', 'indent' }
+        end
+      }
+    end,
   },
 
   {
@@ -298,6 +317,12 @@ require('lazy').setup({
 
 -- Set highlight on search
 vim.o.hlsearch = false
+
+-- Set fold-related options
+vim.o.foldcolumn = '0' -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 
 -- Make line numbers default
 vim.wo.number = true
