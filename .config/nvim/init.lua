@@ -94,6 +94,14 @@ require('lazy').setup({
   },
 
   {
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp"
+  },
+
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -241,11 +249,8 @@ require('lazy').setup({
 
   {
     'ThePrimeagen/harpoon',
-    opts = {},
+    branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("harpoon").setup {}
-    end,
   },
 
   {
@@ -358,6 +363,22 @@ require('lazy').setup({
     }
   },
 
+  {
+    'Issafalcon/lsp-overloads.nvim',
+  },
+
+  {
+    'Exafunction/codeium.vim',
+    event = 'BufEnter',
+    config = function()
+      -- Change '<C-g>' here to any keycode you like.
+      vim.keymap.set('i', '<A-h>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<A-j>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<A-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<A-l>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+    end
+  },
+
   -- {
   --   'vimwiki/vimwiki',
   --   init = function()
@@ -443,6 +464,11 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+--- Disable codeium filetypes
+vim.g.codeium_filetypes = {
+  markdown = false,
+}
+
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
@@ -501,19 +527,21 @@ vim.keymap.set('n', '<leader>/', function()
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 
--- Keymap for harpoon
-vim.keymap.set('n', '<leader>ht', require("harpoon.ui").toggle_quick_menu, { desc = 'Open harpoon quick menu' })
-vim.keymap.set('n', '<leader>hu', require("harpoon.mark").add_file, { desc = 'Harpoon a file' })
-vim.keymap.set('n', '<leader>hg', require("harpoon.ui").nav_prev, { desc = 'Harpoon to previous file' })
-vim.keymap.set('n', '<leader>hh', require("harpoon.ui").nav_next, { desc = 'Harpoon to next file' })
+-- Harpoon Setup:
+local harpoon = require("harpoon")
+harpoon:setup()
 
-vim.keymap.set('n', '<leader>ha', function() require("harpoon.ui").nav_file(1) end, { desc = 'Harpoon switch to file 1' })
-vim.keymap.set('n', '<leader>hs', function() require("harpoon.ui").nav_file(2) end, { desc = 'Harpoon switch to file 2' })
-vim.keymap.set('n', '<leader>hd', function() require("harpoon.ui").nav_file(3) end, { desc = 'Harpoon switch to file 3' })
-vim.keymap.set('n', '<leader>hf', function() require("harpoon.ui").nav_file(4) end, { desc = 'Harpoon switch to file 4' })
-vim.keymap.set('n', '<leader>hj', function() require("harpoon.ui").nav_file(5) end, { desc = 'Harpoon switch to file 5' })
-vim.keymap.set('n', '<leader>hk', function() require("harpoon.ui").nav_file(6) end, { desc = 'Harpoon switch to file 6' })
-vim.keymap.set('n', '<leader>hl', function() require("harpoon.ui").nav_file(7) end, { desc = 'Harpoon switch to file 7' })
+-- Keymap for harpoon
+vim.keymap.set('n', '<leader>hu', function() harpoon:list():append() end, { desc = 'Harpoon a file' })
+vim.keymap.set('n', '<leader>ht', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+  { desc = 'Open harpoon quick menu' })
+vim.keymap.set('n', '<leader>ha', function() harpoon:list():select(1) end, { desc = 'Harpoon switch to file 1' })
+vim.keymap.set('n', '<leader>hs', function() harpoon:list():select(2) end, { desc = 'Harpoon switch to file 2' })
+vim.keymap.set('n', '<leader>hd', function() harpoon:list():select(3) end, { desc = 'Harpoon switch to file 3' })
+vim.keymap.set('n', '<leader>hf', function() harpoon:list():select(4) end, { desc = 'Harpoon switch to file 4' })
+vim.keymap.set('n', '<leader>hj', function() harpoon:list():select(5) end, { desc = 'Harpoon switch to file 5' })
+vim.keymap.set('n', '<leader>hk', function() harpoon:list():select(6) end, { desc = 'Harpoon switch to file 6' })
+vim.keymap.set('n', '<leader>hl', function() harpoon:list():select(7) end, { desc = 'Harpoon switch to file 7' })
 
 vim.keymap.set('n', '<leader>gl', function() require('telescope').extensions.git_worktree.git_worktrees() end,
   { desc = 'list worktrees' })
@@ -621,7 +649,41 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
+  --- Guard against servers without the signatureHelper capability
+  if client.server_capabilities.signatureHelpProvider then
+    require('lsp-overloads').setup(client, {
+      -- UI options are mostly the same as those passed to vim.lsp.util.open_floating_preview
+      ui = {
+        border = "single", -- The border to use for the signature popup window. Accepts same border values as |nvim_open_win()|.
+        height = nil,      -- Height of the signature popup window (nil allows dynamic sizing based on content of the help)
+        width = nil,       -- Width of the signature popup window (nil allows dynamic sizing based on content of the help)
+        wrap = true,       -- Wrap long lines
+        wrap_at = nil,     -- Character to wrap at for computing height when wrap enabled
+        max_width = nil,   -- Maximum signature popup width
+        max_height = nil,  -- Maximum signature popup height
+        -- Events that will close the signature popup window: use {"CursorMoved", "CursorMovedI", "InsertCharPre"} to hide the window when typing
+        close_events = { "CursorMoved", "BufHidden", "InsertLeave" },
+        focusable = true,                       -- Make the popup float focusable
+        focus = false,                          -- If focusable is also true, and this is set to true, navigating through overloads will focus into the popup window (probably not what you want)
+        offset_x = 0,                           -- Horizontal offset of the floating window relative to the cursor position
+        offset_y = 0,                           -- Vertical offset of the floating window relative to the cursor position
+        floating_window_above_cur_line = false, -- Attempt to float the popup above the cursor position
+        -- (note, if the height of the float would be greater than the space left above the cursor, it will default
+        -- to placing the float below the cursor. The max_height option allows for finer tuning of this)
+        silent = true -- Prevents noisy notifications (make false to help debug why signature isn't working)
+      },
+      keymaps = {
+        next_signature = "<C-j>",
+        previous_signature = "<C-k>",
+        next_parameter = "<C-l>",
+        previous_parameter = "<C-h>",
+        close_signature = "<A-s>"
+      },
+      display_automatically = true -- Uses trigger characters to automatically display the signature overloads when typing a method signature
+    })
+  end
+
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
