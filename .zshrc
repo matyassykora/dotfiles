@@ -15,6 +15,8 @@ ZSH_THEME="agnoster"
 
 export TODO_DIR="$HOME/notes/200-todos"
 
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -86,8 +88,6 @@ export ROFI_SEARCH='ddgr'
 export FZF_DEFAULT_OPTS='--height 60%'
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 
-eval $(keychain --eval --quiet ~/.ssh/id_ed25519)
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -118,3 +118,5 @@ if [ -f /home/maty/.todo/.todo.comp ]; then
     source /home/maty/.todo/.todo.comp
     compdef _todo todo
 fi
+
+eval $(keychain --eval --quiet ~/.ssh/id_ed25519)

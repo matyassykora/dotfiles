@@ -372,10 +372,20 @@ require('lazy').setup({
     event = 'BufEnter',
     config = function()
       -- Change '<C-g>' here to any keycode you like.
-      vim.keymap.set('i', '<A-h>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<A-j>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<A-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.keymap.set('i', '<A-l>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+      -- vim.keymap.set('i', '<A-h>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      -- vim.keymap.set('i', '<A-j>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      -- vim.keymap.set('i', '<A-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      -- vim.keymap.set('i', '<A-l>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+    end
+  },
+  {
+    'nvimtools/none-ls.nvim',
+    config = function()
+    end
+  },
+  {
+    'MunifTanjim/prettier.nvim',
+    config = function()
     end
   },
 
@@ -465,6 +475,7 @@ vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 
 --- Disable codeium filetypes
+vim.g.codeium_enabled = false
 vim.g.codeium_filetypes = {
   markdown = false,
 }
@@ -531,6 +542,9 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 local harpoon = require("harpoon")
 harpoon:setup()
 
+vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Yank to clipboard' })
+vim.keymap.set('n', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
+
 -- Keymap for harpoon
 vim.keymap.set('n', '<leader>hu', function() harpoon:list():append() end, { desc = 'Harpoon a file' })
 vim.keymap.set('n', '<leader>ht', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
@@ -548,7 +562,7 @@ vim.keymap.set('n', '<leader>gl', function() require('telescope').extensions.git
 vim.keymap.set('n', '<leader>gw', function() require('telescope').extensions.git_worktree.create_git_worktree() end,
   { desc = 'create worktree' })
 
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+-- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 vim.api.nvim_set_keymap("n", "<Leader>gd", ":lua require('neogen').generate()<CR>", { desc = 'Generate Documentation' })
 
@@ -735,7 +749,7 @@ end
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
@@ -987,6 +1001,63 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+local null_ls = require("null-ls")
+
+local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+local event = "BufWritePre" -- or "BufWritePost"
+local async = event == "BufWritePost"
+
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.keymap.set("n", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+
+      -- format on save
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      vim.api.nvim_create_autocmd(event, {
+        buffer = bufnr,
+        group = group,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, async = async })
+        end,
+        desc = "[lsp] format on save",
+      })
+    end
+
+    if client.supports_method("textDocument/rangeFormatting") then
+      vim.keymap.set("x", "<Leader>f", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format" })
+    end
+  end,
+})
+
+local prettier = require("prettier")
+
+prettier.setup({
+  cli_options = {
+    single_attribute_per_line = true,
+    single_quote = true,
+  },
+  bin = 'prettierd',
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
