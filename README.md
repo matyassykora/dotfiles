@@ -46,5 +46,10 @@ https://github.com/catppuccin/qt5ct
 python -m ensurepip --upgrade
 ```
 
+## install tmux plugin manager
+```
+https://github.com/tmux-plugins/tpm
+```
+
 ## add windows entry to systemd-boot bootloader
 https://forum.endeavouros.com/t/tutorial-add-a-systemd-boot-loader-menu-entry-for-a-windows-installation-using-a-separate-esp-partition/37431
