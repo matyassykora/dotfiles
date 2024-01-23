@@ -760,12 +760,24 @@ local servers = {
       },
     }
   },
+  htmx = {
+    filetypes = {
+      "twig",
+      "html",
+    },
+  },
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
   -- html
   html = {
-    filetypes = { "html",
+    filetypes = {
+      "html",
+      "twig",
       -- "javascript",
-      "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+      "javascriptreact",
+      "javascript.jsx",
+      "typescript",
+      "typescriptreact",
+      "typescript.tsx" },
   },
   -- Emmet
   emmet_ls = {
@@ -1033,6 +1045,14 @@ null_ls.setup({
       end, { buffer = bufnr, desc = "[lsp] format" })
     end
   end,
+  sources = {
+    null_ls.builtins.formatting.djlint.with({
+      filetypes = { "twig" },
+      command = "djlint",
+      args = { "--reformat", "--close-void-tags", "-" },
+    }),
+    null_ls.builtins.diagnostics.twigcs,
+  }
 })
 
 local prettier = require("prettier")
