@@ -114,6 +114,14 @@ export FZF_DEFAULT_COMMAND="fd . $HOME"
 alias vim=nvim
 alias fv="nvim \$(fzf)"
 alias fman="compgen -c | fzf | xargs man"
+duh ()
+{
+    arg=$1
+    if [[ ! $arg ]]; then
+        arg=10
+    fi
+    du -ah . | sort -hr | head -n $arg
+}
 
 if [ -f /home/maty/.todo/.todo.comp ]; then
     source /home/maty/.todo/.todo.comp
