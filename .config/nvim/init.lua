@@ -389,19 +389,6 @@ require('lazy').setup({
     end
   },
 
-  -- {
-  --   'vimwiki/vimwiki',
-  --   init = function()
-  --     vim.g.vimwiki_list = {
-  --       {
-  --         path = '~/vimwiki/',
-  --         syntax = 'markdown',
-  --         ext = '.md',
-  --       }
-  --     }
-  --   end
-  -- },
-
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -593,7 +580,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'html', 'css', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'html', 'css', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'markdown', 'go' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
