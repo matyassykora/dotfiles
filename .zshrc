@@ -113,6 +113,7 @@ export FZF_DEFAULT_COMMAND="fd . $HOME"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim=nvim
 alias fv="nvim \$(fzf)"
+alias fman="compgen -c | fzf | xargs man"
 
 if [ -f /home/maty/.todo/.todo.comp ]; then
     source /home/maty/.todo/.todo.comp
