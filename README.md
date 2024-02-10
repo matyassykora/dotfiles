@@ -2,9 +2,8 @@
 
 ## install pacman packages
 ```
-sudo pacman -Syyu zsh yadm hyprland pamixer wget tmux python nodejs npm neofetch kitty curl git base-devel pipewire-pulse wireplumber waybar rofi yarn ttf-font-awesome ttf-jetbrains-mono fzf ntfs-3g mpd cantata libnotify fd dolphin qt5ct swww discord ripgrep wl-clipboard
+sudo pacman -Syyu zsh yadm hyprland pamixer wget tmux python nodejs npm neofetch kitty curl git base-devel pipewire-pulse wireplumber waybar rofi yarn ttf-font-awesome ttf-jetbrains-mono fzf ntfs-3g mpd cantata libnotify fd dolphin qt5ct swww discord ripgrep wl-clipboard man-pages man-db jq
 ```
-
 ## install yay
 ```
 pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
