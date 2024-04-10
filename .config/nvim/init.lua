@@ -230,7 +230,7 @@ require('lazy').setup({
     config = function()
       require("ufo").setup {
         open_fold_hl_timeout = 0,
-        close_fold_kinds = { 'region', 'comment', 'imports' },
+        close_fold_kinds_for_ft = { 'region', 'comment', 'imports' },
         preview = {},
         enable_get_fold_virt_text = true,
         provider_selector = function()
@@ -378,15 +378,39 @@ require('lazy').setup({
       -- vim.keymap.set('i', '<A-l>', function() return vim.fn['codeium#Clear']() end, { expr = true })
     end
   },
+
   {
     'nvimtools/none-ls.nvim',
     config = function()
     end
   },
+
   {
     'MunifTanjim/prettier.nvim',
     config = function()
     end
+  },
+
+  {
+    'nvim-java/nvim-java',
+    dependencies = {
+      'nvim-java/lua-async-await',
+      'nvim-java/nvim-java-core',
+      'nvim-java/nvim-java-test',
+      'nvim-java/nvim-java-dap',
+      'MunifTanjim/nui.nvim',
+      'neovim/nvim-lspconfig',
+      'mfussenegger/nvim-dap',
+      {
+        'williamboman/mason.nvim',
+        opts = {
+          registries = {
+            'github:nvim-java/mason-registry',
+            'github:mason-org/mason-registry',
+          },
+        },
+      }
+    },
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -533,7 +557,7 @@ vim.keymap.set('n', '<leader>y', '"+y', { desc = 'Yank to clipboard' })
 vim.keymap.set('n', '<leader>p', '"+p', { desc = 'Paste from clipboard' })
 
 -- Keymap for harpoon
-vim.keymap.set('n', '<leader>hu', function() harpoon:list():append() end, { desc = 'Harpoon a file' })
+vim.keymap.set('n', '<leader>hu', function() harpoon:list():add() end, { desc = 'Harpoon a file' })
 vim.keymap.set('n', '<leader>ht', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
   { desc = 'Open harpoon quick menu' })
 vim.keymap.set('n', '<leader>ha', function() harpoon:list():select(1) end, { desc = 'Harpoon switch to file 1' })
@@ -736,6 +760,7 @@ end
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
+  jdtls = {},
   clangd = {},
   -- gopls = {},
   -- pyright = {},
@@ -929,6 +954,10 @@ require("oil").setup({
 
 -- Setup neovim lua configuration
 require('neodev').setup()
+
+-- Setup nvim-java
+require('java').setup()
+require('lspconfig').jdtls.setup({})
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
