@@ -59,12 +59,18 @@ tooltip {
 #network,
 #workspaces,
 #tray,
+#mpd,
 #backlight {
     background: #1e1e2e;
     padding: 0px 10px;
     margin: 3px 0px;
     margin-top: 10px;
     border: 1px solid #181825;
+}
+
+#mpd {
+    border-radius: 10px;
+    margin-right: 10px;
 }
 
 #tray {
@@ -74,7 +80,7 @@ tooltip {
 
 #workspaces {
     background: #1e1e2e;
-    border-radius: 10px;
+    border-radius: 0px 10px 10px 0px;
     margin-left: 10px;
     padding-right: 0px;
     padding-left: 5px;
