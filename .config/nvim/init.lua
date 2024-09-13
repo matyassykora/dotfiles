@@ -223,22 +223,22 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-  {
-    'kevinhwang91/nvim-ufo',
-    opts = {},
-    dependencies = { "kevinhwang91/promise-async" },
-    config = function()
-      require("ufo").setup {
-        open_fold_hl_timeout = 0,
-        close_fold_kinds_for_ft = { 'region', 'comment', 'imports' },
-        preview = {},
-        enable_get_fold_virt_text = true,
-        provider_selector = function()
-          return { 'treesitter', 'indent' }
-        end
-      }
-    end,
-  },
+  -- {
+  --   'kevinhwang91/nvim-ufo',
+  --   opts = {},
+  --   dependencies = { "kevinhwang91/promise-async" },
+  --   config = function()
+  --     require("ufo").setup {
+  --       open_fold_hl_timeout = 0,
+  --       close_fold_kinds_for_ft = { 'region', 'comment', 'imports' },
+  --       preview = {},
+  --       enable_get_fold_virt_text = true,
+  --       provider_selector = function()
+  --         return { 'treesitter', 'indent' }
+  --       end
+  --     }
+  --   end,
+  -- },
 
   {
     'stevearc/oil.nvim',
@@ -363,21 +363,29 @@ require('lazy').setup({
     }
   },
 
+  -- FIXME: remove the context highlight tag
+  {
+    'wellle/context.vim',
+    config = function()
+      vim.g.context_highlight_tag = '<hide>'
+    end
+  },
+
   {
     'Issafalcon/lsp-overloads.nvim',
   },
 
-  {
-    'Exafunction/codeium.vim',
-    event = 'BufEnter',
-    config = function()
-      -- Change '<C-g>' here to any keycode you like.
-      -- vim.keymap.set('i', '<A-h>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      -- vim.keymap.set('i', '<A-j>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      -- vim.keymap.set('i', '<A-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      -- vim.keymap.set('i', '<A-l>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-    end
-  },
+  -- {
+  --   'Exafunction/codeium.vim',
+  --   event = 'BufEnter',
+  --   config = function()
+  --     -- Change '<C-g>' here to any keycode you like.
+  --     -- vim.keymap.set('i', '<A-h>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+  --     -- vim.keymap.set('i', '<A-j>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+  --     -- vim.keymap.set('i', '<A-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+  --     -- vim.keymap.set('i', '<A-l>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+  --   end
+  -- },
 
   {
     'nvimtools/none-ls.nvim',
@@ -392,26 +400,33 @@ require('lazy').setup({
   },
 
   {
-    'nvim-java/nvim-java',
-    dependencies = {
-      'nvim-java/lua-async-await',
-      'nvim-java/nvim-java-core',
-      'nvim-java/nvim-java-test',
-      'nvim-java/nvim-java-dap',
-      'MunifTanjim/nui.nvim',
-      'neovim/nvim-lspconfig',
-      'mfussenegger/nvim-dap',
-      {
-        'williamboman/mason.nvim',
-        opts = {
-          registries = {
-            'github:nvim-java/mason-registry',
-            'github:mason-org/mason-registry',
-          },
-        },
-      }
-    },
+    "mbbill/undotree",
+    config = function()
+    end
   },
+
+  -- {
+  --   'nvim-java/nvim-java',
+  --   dependencies = {
+  --     'nvim-java/lua-async-await',
+  --     'nvim-java/nvim-java-core',
+  --     'nvim-java/nvim-java-test',
+  --     'nvim-java/nvim-java-dap',
+  --     'nvim-java/nvim-java-refactor',
+  --     'MunifTanjim/nui.nvim',
+  --     'neovim/nvim-lspconfig',
+  --     'mfussenegger/nvim-dap',
+  --     {
+  --       'williamboman/mason.nvim',
+  --       opts = {
+  --         registries = {
+  --           'github:nvim-java/mason-registry',
+  --           'github:mason-org/mason-registry',
+  --         },
+  --       },
+  --     }
+  --   },
+  -- },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -486,10 +501,10 @@ vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 
 --- Disable codeium filetypes
-vim.g.codeium_enabled = false
-vim.g.codeium_filetypes = {
-  markdown = false,
-}
+-- vim.g.codeium_enabled = false
+-- vim.g.codeium_filetypes = {
+--   markdown = false,
+-- }
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -577,16 +592,23 @@ vim.keymap.set('n', '<leader>gw', function() require('telescope').extensions.git
 
 vim.api.nvim_set_keymap("n", "<Leader>gd", ":lua require('neogen').generate()<CR>", { desc = 'Generate Documentation' })
 
+-- Keymap for undotree
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+
+-- Keymap for golang testing
+-- TODO: make this work only in 'go' files
+vim.keymap.set('n', '<leader>t', "<cmd>!go test -v $(echo %:p:h)<CR>")
+
 -- Keymap for todo comments
-vim.keymap.set("n", "]t", function()
+vim.keymap.set("n", "]T", function()
   require("todo-comments").jump_next()
 end, { desc = "Next todo comment" })
 
-vim.keymap.set("n", "[t", function()
+vim.keymap.set("n", "[T", function()
   require("todo-comments").jump_prev()
 end, { desc = "Previous todo comment" })
 
-vim.keymap.set('n', '<leader>t', ":TodoTelescope<CR>", { desc = 'Search Todos' })
+vim.keymap.set('n', '<leader>T', ":TodoTelescope<CR>", { desc = 'Search Todos' })
 
 -- vim.keymap.set('n', '<leader>mc', function() require('nvim-tree-docs.internal').doc_node_at_cursor() end)
 -- vim.keymap.set('v', '<leader>mr', function() require('nvim-tree-docs.internal').doc_all_in_range() end)
@@ -761,11 +783,13 @@ end
 --  define the property 'filetypes' to the map in question.
 local servers = {
   jdtls = {},
-  clangd = {},
+  clangd = {
+    cmd = "--header-insertion=never",
+  },
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  tsserver = {
+  ts_ls = {
     settings = {
       implicitProjectConfiguration = {
         checkJs = true
@@ -956,8 +980,8 @@ require("oil").setup({
 require('neodev').setup()
 
 -- Setup nvim-java
-require('java').setup()
-require('lspconfig').jdtls.setup({})
+-- require('java').setup()
+-- require('lspconfig').jdtls.setup({})
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()

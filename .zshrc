@@ -1,6 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/.scripts:$HOME/.config/composer/vendor/friendsoftwig/twigcs/bin:$PATH
+export PATH=$HOME/.scripts:$HOME/.config/composer/vendor/friendsoftwig/twigcs/bin:$HOME/go/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -112,6 +112,7 @@ export FZF_DEFAULT_COMMAND="fd . $HOME"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim=nvim
+alias pt=personal-todos
 alias fv="nvim \$(fzf)"
 alias fman="compgen -c | fzf | xargs man"
 duh ()

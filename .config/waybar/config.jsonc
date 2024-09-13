@@ -8,6 +8,7 @@
     "height": 0,
     "modules-left": [
         "clock",
+        "custom/todos",
         "hyprland/workspaces"
     ],
     "modules-center": [
@@ -51,7 +52,7 @@
         }
     },
     "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
         "format-disconnected": "Disconnected ",
         "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
         "interval": 1,
@@ -72,9 +73,16 @@
             "paused": "",
             "playing": ""
         },
-        "tooltip-format": "MPD (connected)",
+        "tooltip-format": "{artist} - {album}",
         "tooltip-format-disconnected": "MPD (disconnected)",
         "on-click": "mpc toggle"
+    },
+    "custom/todos":{
+        "format": "{}",
+        "interval": 60,
+        "exec": "~/.scripts/personal-todos -j",
+        "return-type": "json",
+        "on-click": "kitty --hold ~/.scripts/personal-todos"
     },
     "custom/updates": {
         "format": " {}",
