@@ -1,75 +1,45 @@
 #!/bin/bash
 
-# function to prompt the user for a filename
-get_filename() {
-	read -p "Filename: " filename
-	echo "$filename"
-}
+NOTES_DIR="$HOME/notes"
+INBOX_DIR="$NOTES_DIR/000-inbox"
 
-# function to create and open a file in the specified directory
-open_file() {
+shopt -s globstar
 
-	# Cd into the directory
-	cd "$1" || exit
-	# Create the file in the specified directory
-	touch "$1/$filename.md"
-
-	# create unique identifier and links section
-	timestamp_date="$(date +"%Y-%m-%d")"
-	timestamp_time="$(date +"%H:%M:%S")"
-
-	# format the file
-	{
-		echo "---"
-		echo "title: $filename"
-		echo "date: $timestamp_date"
-		echo "time: $timestamp_time"
-		echo "tags:"
-		echo "- inbox"
-		echo "---"
-		echo -en "\n"
-		echo "# $filename"
-		echo -en "\n"
-		echo -en "\n"
-	} >>"$1/$filename.md"
-
-	# Open the file in Neovim
-	nvim '+ normal ggzzi' "$1/$filename.md" -c 11j
-}
-
-# Prompt the user if no filename is provided
-if [[ $# -lt 1 ]]; then
-	filename=$(get_filename)
-fi
-
-# if more than one argument is given, print error message and stop script
-if [[ $# -gt 1 ]]; then
-	echo "Please provide only one filename separated by dashes, without .md extension."
-	echo "Example: note my-new-note"
+if [[ $# != 1 ]]; then
+	echo "Input a filename, separated by dashes, without an extension"
+	echo "e.g. my-note"
 	exit 1
 fi
 
-# set filename to the argument given to the script
-if [[ $# -eq 1 ]]; then
-	filename=$1
+file_name="$1"
+
+found_files=$(ls -d1 "$PWD"/**/* | grep -w "$file_name.md")
+
+if [[ -n "$found_files" ]]; then
+	nvim "+norm G$" "$found_files"
+	exit 1
 fi
 
-# check if filename is empty
-if [[ ! $filename ]]; then
-	echo "input a filename!"
-	filename=$(get_filename)
-fi
+cd "$found_files" || exit 1
+touch "$INBOX_DIR/$file_name.md" || exit 1
 
-# check if file exists
-if [[ -f "$HOME/notes/000-inbox/$filename.md" ]]; then
-	echo "File already exists!"
-	read -p "Edit? (y/n) " yn
-	case $yn in 
-		y ) nvim '+ normal Gzzo' "$HOME/notes/000-inbox/$filename.md"; exit 1;;
-		n )	exit 1;;
-		* ) echo "invalid response";
-			exit 1;;
-	esac
-fi
+timestamp_date="$(date +"%Y-%m-%d")"
+timestamp_time="$(date +"%H:%M:%S")"
 
-open_file "$HOME/notes/000-inbox"
+# formatting
+{
+	echo "---"
+	echo "title: $file_name"
+	echo "date: $timestamp_date"
+	echo "time: $timestamp_time"
+	echo "tags:"
+	echo "  - inbox"
+	echo "---"
+	echo -en "\n"
+	# uppercase first character of the line OR any character following a '-', then replace '-' with ' '
+	printf "# %s\n" "$(echo "$file_name" | sed 's/^.\|-./\U&/g' | tr '-' ' ')"
+	echo -en "\n"
+	echo -en "\n"
+} >>"$INBOX_DIR/$file_name.md"
+
+nvim "+norm G$" "$INBOX_DIR/$file_name.md"
