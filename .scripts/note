@@ -13,7 +13,7 @@ fi
 
 file_name="$1"
 
-found_files=$(ls -d1 "$PWD"/**/* | grep -w "$file_name.md")
+found_files=$(ls -d1 "$NOTES_DIR"/**/* | grep -w "$file_name.md")
 
 if [[ -n "$found_files" ]]; then
 	nvim "+norm G$" "$found_files"
@@ -43,3 +43,4 @@ timestamp_time="$(date +"%H:%M:%S")"
 } >>"$INBOX_DIR/$file_name.md"
 
 nvim "+norm G$" "$INBOX_DIR/$file_name.md"
+exit 0
