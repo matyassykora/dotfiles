@@ -113,6 +113,8 @@ export FZF_DEFAULT_COMMAND="fd . $HOME"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim=nvim
 alias pt=personal-todos
+alias np=noteparse
+alias sc=search-content
 alias fv="nvim \$(fzf)"
 alias fman="compgen -c | fzf | xargs man"
 duh ()
