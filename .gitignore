@@ -1,3 +1,4 @@
 .config/tmux/*/
 .scripts/personal-todos
 .scripts/todos/
+.config/go/
