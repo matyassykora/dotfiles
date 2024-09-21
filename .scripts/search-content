@@ -1,0 +1,11 @@
+#!/bin/bash
+
+RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+fzf --disabled --ansi \
+  --height -3 \
+  --bind "start:$RELOAD" \
+  --bind "change:$RELOAD" \
+  --bind "enter:become:nvim {1} +{2}" \
+  --delimiter ":" \
+  --preview "bat --theme=OneHalfDark --style=numbers --color=always --highlight-line {2} {1}" \
+  --preview-window "+{2}/2,<80(up)"
