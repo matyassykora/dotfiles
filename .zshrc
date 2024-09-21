@@ -58,9 +58,16 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # aliases
+<<<<<<< HEAD
 alias ls='ls --color'
 alias l='ls -la'
 alias ll='ls -l'
+=======
+alias ls='ls -h --color'
+alias l='ls -la'
+alias ll='ls -l'
+alias gc='git commit'
+>>>>>>> fb39fc5 (Move to stow & oh-my-posh)
 alias vim=nvim
 alias pt=personal-todos
 alias np=noteparse

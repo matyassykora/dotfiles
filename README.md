@@ -1,34 +1,65 @@
 # dotfiles
 
 ## install pacman packages
+<<<<<<< HEAD
 ```
 sudo pacman -Syyu zsh yadm hyprland pamixer wget tmux python nodejs npm neofetch kitty curl git base-devel pipewire-pulse wireplumber waybar yarn ttf-font-awesome ttf-jetbrains-mono fzf ntfs-3g mpd cantata libnotify fd dolphin qt5ct swww discord ripgrep wl-clipboard man-pages man-db jq scc
 ```
 ## install yay
+=======
+
+```
+sudo pacman -Syyu zsh stow hyprland pamixer wget tmux python nodejs npm neofetch kitty curl git base-devel pipewire-pulse wireplumber waybar yarn ttf-font-awesome ttf-jetbrains-mono fzf ntfs-3g mpd cantata libnotify fd dolphin qt5ct swww discord ripgrep wl-clipboard man-pages man-db jq
+```
+
+## install yay
+
+>>>>>>> fb39fc5 (Move to stow & oh-my-posh)
 ```
 pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 ```
 
 ## install yay packages
+<<<<<<< HEAD
 ```
 yay -s neovim-git ttf-meslo-nerd-font-powerlevel10k wpaperd xwaylandvideobridge-bin betterdiscord-git betterdiscordctl symfony-cli-bin xwaylandvideobridge-bin hoppscotch-bin air rofi-lbonn-wayland-git
 ```
 
 ## install oh-my-zsh
+=======
+
+```
+yay -s neovim-git ttf-meslo-nerd-font-powerlevel10k oh-my-posh wpaperd xwaylandvideobridge-bin betterdiscord-git betterdiscordctl symfony-cli-bin xwaylandvideobridge-bin hoppscotch-bin air rofi-lbonn-wayland-git
+```
+
+## install oh-my-zsh
+
+>>>>>>> fb39fc5 (Move to stow & oh-my-posh)
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 ## install locale
+<<<<<<< HEAD
 ```
 sudo vim /etc/locale.gen
 ```
 then uncomment your locale and run:
+=======
+
+```
+sudo vim /etc/locale.gen
+```
+
+then uncomment your locale and run:
+
+>>>>>>> fb39fc5 (Move to stow & oh-my-posh)
 ```
 sudo locale-gen
 ```
 
 ## install theme for qt apps
+<<<<<<< HEAD
 ### enable chaotic-aur
 ```
 https://aur.chaotic.cx/
@@ -36,20 +67,45 @@ https://aur.chaotic.cx/
 ```
 sudo pacman -Syyu lightly-qt
 ```
+=======
+
+### enable chaotic-aur
+
+```
+https://aur.chaotic.cx/
+```
+
+```
+sudo pacman -Syyu lightly-qt
+```
+
+>>>>>>> fb39fc5 (Move to stow & oh-my-posh)
 ```
 https://github.com/catppuccin/qt5ct
 ```
 
 ## install pip
+<<<<<<< HEAD
+=======
+
+>>>>>>> fb39fc5 (Move to stow & oh-my-posh)
 ```
 python -m ensurepip --upgrade
 ```
 
 ## install tmux plugin manager
+<<<<<<< HEAD
+=======
+
+>>>>>>> fb39fc5 (Move to stow & oh-my-posh)
 ```
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 <[prefix]-I> to install
 ```
 
 ## add windows entry to systemd-boot bootloader
+<<<<<<< HEAD
+=======
+
+>>>>>>> fb39fc5 (Move to stow & oh-my-posh)
 https://forum.endeavouros.com/t/tutorial-add-a-systemd-boot-loader-menu-entry-for-a-windows-installation-using-a-separate-esp-partition/37431
