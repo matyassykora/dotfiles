@@ -1,0 +1,44 @@
+#!/bin/bash
+
+today=$(date +"%Y-%m-%d")
+tomorrow=$(date -d "tomorrow" '+%Y-%m-%d')
+yesterday=$(date -d "yesterday" '+%Y-%m-%d')
+file="$HOME"'/notes/100-daily/'$(date +"%Y-%m-%d").md
+
+cd "$HOME" || exit
+
+new_note() {
+	touch "$file"
+
+	# Format the file with the daily template
+	cat <<EOF >"$file"
+# $today
+
+[[$yesterday]] - [[$tomorrow]]
+
+## Plánování
+
+Čeho chci dnes a zítra dosáhnout?
+
+## Každodenní věci
+
+- [ ] Cvičení
+- [ ] Meditace
+- [ ] Programování a git commit
+- [ ] Hledání práce?
+
+## Deník
+
+EOF
+
+}
+
+# If the daily note does not exist, create a new one.
+# this uses the test command with the -f flag.
+if [ ! -f "$file" ]; then
+	echo "File does not exist, creating new daily note."
+	new_note
+fi
+
+# Open the daily note at the bottom of the file in insert mode
+nvim '+ normal Gzzo' "$file"

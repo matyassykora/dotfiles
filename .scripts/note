@@ -1,0 +1,46 @@
+#!/bin/bash
+
+NOTES_DIR="$HOME/notes"
+INBOX_DIR="$NOTES_DIR/000-inbox"
+
+shopt -s globstar
+
+if [[ $# != 1 ]]; then
+	echo "Input a filename, separated by dashes, without an extension"
+	echo "e.g. my-note"
+	exit 1
+fi
+
+file_name="$1"
+
+found_files=$(ls -d1 "$NOTES_DIR"/**/* | grep -w "$file_name.md")
+
+if [[ -n "$found_files" ]]; then
+	nvim "+norm G$" "$found_files"
+	exit 1
+fi
+
+cd "$found_files" || exit 1
+touch "$INBOX_DIR/$file_name.md" || exit 1
+
+timestamp_date="$(date +"%Y-%m-%d")"
+timestamp_time="$(date +"%H:%M:%S")"
+
+# formatting
+{
+	echo "---"
+	echo "title: $file_name"
+	echo "date: $timestamp_date"
+	echo "time: $timestamp_time"
+	echo "tags:"
+	echo "  - inbox"
+	echo "---"
+	echo -en "\n"
+	# uppercase first character of the line OR any character following a '-', then replace '-' with ' '
+	printf "# %s\n" "$(echo "$file_name" | sed 's/^.\|-./\U&/g' | tr '-' ' ')"
+	echo -en "\n"
+	echo -en "\n"
+} >>"$INBOX_DIR/$file_name.md"
+
+nvim "+norm G$" "$INBOX_DIR/$file_name.md"
+exit 0
