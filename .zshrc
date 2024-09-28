@@ -64,6 +64,7 @@ alias ll='ls -l'
 alias gc='git commit'
 alias vim=nvim
 alias pt=personal-todos
+alias tv='nvim $((~/notes/noteparse | fzf) | cut -d " " -f2)'
 alias np=noteparse
 alias sc=search-content
 alias fv="nvim \$(fzf)"
